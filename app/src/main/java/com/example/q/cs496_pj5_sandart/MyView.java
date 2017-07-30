@@ -8,6 +8,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -61,31 +62,35 @@ public class MyView extends View {
                 sand.setHeight(1);
                 mPaint.setColor(getResources().getColor(R.color.stage1));
                 cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
+                break;
             case 1:
                 double random1 = Math.random();
-                if(random1 <= 0.8){
+                if(random1 <= 0.99){
                     sand.setHeight(2);
                     mPaint.setColor(getResources().getColor(R.color.stage2));
                     cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
                 }
                 else
                     select(sand);
+                break;
             case 2:
                 double random2 = Math.random();
-                if(random2 <= 0.4){
+                if(random2 <= 0.95){
                     sand.setHeight(3);
                     mPaint.setColor(getResources().getColor(R.color.stage3));
                     cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
                 }
                 else
                     select(sand);
+                break;
             case 3:
                 select(sand);
+                break;
         }
     }
 
     public void select(Sand sand){
-        if(sand.getX() != 0 && sand.getX() != width && sand.getY() != 0 && sand.getY() != height){
+        if(sand.getX() != 0 && sand.getX() != width-1 && sand.getY() != 0 && sand.getY() != height-1){
             double random = Math.random();
             Sand sand1;
             if(random <= 0.08){
@@ -121,6 +126,158 @@ public class MyView extends View {
                 locate(sand1);
             }
         }
+        else if(sand.getX() == 0 && sand.getY() == 0){
+            Sand sand1 = sandArrayList.get(1);
+            Sand sand2 = sandArrayList.get(width);
+            Sand sand3 = sandArrayList.get(width+1);
+            double random = Math.random();
+            if(random <= 0.4){
+                locate(sand1);
+            }
+            else if(random <= 0.8){
+                locate(sand2);
+            }
+            else{
+                locate(sand3);
+            }
+        }
+        else if(sand.getX() == 0 && sand.getY() == height-1){
+            Sand sand1 = sandArrayList.get((height-2)*width);
+            Sand sand2 = sandArrayList.get((height-2)*width+1);
+            Sand sand3 = sandArrayList.get((height-1)*width+1);
+            double random = Math.random();
+            if(random <= 0.4){
+                locate(sand1);
+            }
+            else if(random <= 0.8){
+                locate(sand2);
+            }
+            else{
+                locate(sand3);
+            }
+        }
+        else if(sand.getX() == width-1 && sand.getY() == 0){
+            Sand sand1 = sandArrayList.get(width-2);
+            Sand sand2 = sandArrayList.get(2*width-2);
+            Sand sand3 = sandArrayList.get(2*width-1);
+            double random = Math.random();
+            if(random <= 0.4){
+                locate(sand1);
+            }
+            else if(random <= 0.8){
+                locate(sand2);
+            }
+            else{
+                locate(sand3);
+            }
+        }
+        else if(sand.getX() == width-1 && sand.getY() == height-1){
+            Sand sand1 = sandArrayList.get((height-2)*width+(width-2));
+            Sand sand2 = sandArrayList.get((height-2)*width+(width-1));
+            Sand sand3 = sandArrayList.get((height-1)*width+(width-2));
+            double random = Math.random();
+            if(random <= 0.4){
+                locate(sand1);
+            }
+            else if(random <= 0.8){
+                locate(sand2);
+            }
+            else{
+                locate(sand3);
+            }
+        }
+        else if(sand.getX() == 0){
+            int y = sand.getY();
+            Sand sand1 = sandArrayList.get((y-1)*width);
+            Sand sand2 = sandArrayList.get(y*width+1);
+            Sand sand3 = sandArrayList.get((y+1)*width);
+            Sand sand4 = sandArrayList.get((y-1)*width+1);
+            Sand sand5 = sandArrayList.get((y+1)*width+1);
+            double random = Math.random();
+            if(random <= 0.25){
+                locate(sand1);
+            }
+            else if(random <= 0.5){
+                locate(sand2);
+            }
+            else if(random <= 0.75){
+                locate(sand3);
+            }
+            else if(random <= 0.875){
+                locate(sand4);
+            }
+            else
+                locate(sand5);
+        }
+        else if(sand.getX() == width-1){
+            int y = sand.getY();
+            Sand sand1 = sandArrayList.get((y-1)*width+(width-1));
+            Sand sand2 = sandArrayList.get(y*width+(width-2));
+            Sand sand3 = sandArrayList.get((y+1)*width+(width-1));
+            Sand sand4 = sandArrayList.get((y-1)*width+(width-2));
+            Sand sand5 = sandArrayList.get((y+1)*width+(width-2));
+            double random = Math.random();
+            if(random <= 0.25){
+                locate(sand1);
+            }
+            else if(random <= 0.5){
+                locate(sand2);
+            }
+            else if(random <= 0.75){
+                locate(sand3);
+            }
+            else if(random <= 0.875){
+                locate(sand4);
+            }
+            else
+                locate(sand5);
+        }
+        else if(sand.getY() == 0){
+            int x = sand.getX();
+            Sand sand1 = sandArrayList.get(x-1);
+            Sand sand2 = sandArrayList.get(x+1);
+            Sand sand3 = sandArrayList.get(width+x);
+            Sand sand4 = sandArrayList.get(width+(x-1));
+            Sand sand5 = sandArrayList.get(width+(x+1));
+            double random = Math.random();
+            if(random <= 0.25){
+                locate(sand1);
+            }
+            else if(random <= 0.5){
+                locate(sand2);
+            }
+            else if(random <= 0.75){
+                locate(sand3);
+            }
+            else if(random <= 0.875){
+                locate(sand4);
+            }
+            else
+                locate(sand5);
+        }
+        else {
+            int x = sand.getX();
+            Sand sand1 = sandArrayList.get((height-2)*width+x);
+            Sand sand2 = sandArrayList.get((height-1)*width+(x-1));
+            Sand sand3 = sandArrayList.get((height-1)*width+(x+1));
+            Sand sand4 = sandArrayList.get((height-2)*width+(x-1));
+            Sand sand5 = sandArrayList.get((height-2)*width+(x+1));
+            double random = Math.random();
+            if(random <= 0.25){
+                locate(sand1);
+            }
+            else if(random <= 0.5){
+                locate(sand2);
+            }
+            else if(random <= 0.75){
+                locate(sand3);
+            }
+            else if(random <= 0.875){
+                locate(sand4);
+            }
+            else
+                locate(sand5);
+        }
     }
 
     public boolean onTouchEvent(MotionEvent event){
@@ -132,8 +289,16 @@ public class MyView extends View {
             case MotionEvent.ACTION_UP:
                 break;
             case MotionEvent.ACTION_DOWN:
+                Sand sand1 = sandArrayList.get(Y*width+X);
+                for(int i = 0; i < 1000; i++){
+                    locate(sand1);
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
+                Sand sand2 = sandArrayList.get(Y*width+X);
+                for(int i = 0; i < 1000; i++){
+                    locate(sand2);
+                }
                 break;
         }
         invalidate();

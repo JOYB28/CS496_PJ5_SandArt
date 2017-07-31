@@ -4,9 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="stage1">#663300</color>
-    <color name="stage2">#660000</color>
-    <color name="stage3">#552200</color>
+    <color name="stage1">#CC9900</color>
+    <color name="stage2">#996600</color>
+    <color name="stage3">#663300</color>
     <color name="stage4">#550000</color>
     <color name="stage5">#441100</color>
     <color name="stage6">#440000</color>

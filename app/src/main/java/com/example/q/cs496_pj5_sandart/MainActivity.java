@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Add views to linear layout
     LinearLayout layout = (LinearLayout) findViewById(R.id.mainView);
-    MyView myView = new MyView(getApplicationContext());
+    MyView myView = new MyView(this, getApplicationContext());
     layout.addView(myView, 0);
 
   }

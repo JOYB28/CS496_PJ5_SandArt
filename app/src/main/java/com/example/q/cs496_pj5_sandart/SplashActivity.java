@@ -13,23 +13,23 @@ import android.os.Message;
  */
 
 public class SplashActivity extends AppCompatActivity {
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    // 어플 가로 고정
-    Log.e("qwer", "1");
-    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-    setContentView(R.layout.activity_splash);
-    Log.e("qwer", "2");
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // 어플 가로 고정
+        Log.e("qwer", "1");
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setContentView(R.layout.activity_splash);
+        Log.e("qwer", "2");
 
-    Handler handler = new Handler(){
-      public void handleMessage(Message msg){
-        super.handleMessage(msg);
-        startActivity(new Intent(SplashActivity.this, MainActivity.class));
-        finish();
-      }
-    };
-    handler.sendEmptyMessageDelayed(0,2000);
+        Handler handler = new Handler(){
+            public void handleMessage(Message msg){
+                super.handleMessage(msg);
+                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                finish();
+            }
+        };
+        handler.sendEmptyMessageDelayed(0,2000);
 
-  }
+    }
 }

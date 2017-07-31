@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,81 +9,94 @@
     tools:context="com.example.q.cs496_pj5_sandart.MainActivity">
 
     <LinearLayout
-        android:id="@+id/topMenu"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/thick"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:src="@drawable/thick"/>
+        <LinearLayout
+            android:id="@+id/topMenu"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:padding="4dp">
 
-        <ImageView
-            android:id="@+id/erase"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:src="@drawable/erase"/>
+            <ImageView
+                android:id="@+id/thick"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:src="@drawable/thick"/>
 
-        <ImageView
-            android:id="@+id/undo"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:alpha="0.4"
-            android:src="@drawable/undo"/>
+            <ImageView
+                android:id="@+id/erase"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:src="@drawable/erase"/>
 
-        <ImageView
-            android:id="@+id/redo"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:alpha="0.4"
-            android:src="@drawable/redo"/>
+            <ImageView
+                android:id="@+id/undo"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:alpha="0.4"
+                android:src="@drawable/undo"/>
 
-        <ImageView
-            android:id="@+id/save"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:src="@drawable/save"/>
+            <ImageView
+                android:id="@+id/redo"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:alpha="0.4"
+                android:src="@drawable/redo"/>
 
-        <ImageView
-            android:id="@+id/trash"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:src="@drawable/trash"/>
+            <ImageView
+                android:id="@+id/save"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:src="@drawable/save"/>
 
+            <ImageView
+                android:id="@+id/trash"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:src="@drawable/trash"/>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.example.q.cs496_pj5_sandart.MyView
+                android:id="@+id/drawing"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+            </com.example.q.cs496_pj5_sandart.MyView>
+        </FrameLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/mainView"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-    </LinearLayout>
-
-</LinearLayout>
+</FrameLayout>

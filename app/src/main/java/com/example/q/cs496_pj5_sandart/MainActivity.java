@@ -13,12 +13,11 @@ public class MainActivity extends AppCompatActivity {
     // 어플 가로 고정
     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     setContentView(R.layout.activity_main);
+
     // Add views to linear layout
     LinearLayout layout = (LinearLayout) findViewById(R.id.mainView);
     MyView myView = new MyView(getApplicationContext());
     layout.addView(myView, 0);
-    //LinearLayout linearLayout = (LinearLayout) findViewById(R.id.mainView);
-    //MyView myView = new MyView(getApplicationContext());
-    //setContentView(myView);
+
   }
 }

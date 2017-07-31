@@ -6,15 +6,17 @@ package com.example.q.cs496_pj5_sandart;
 
 public class Sand {
     private int x, y, height;
+    private boolean enabled;
 
     public Sand(){
-
+        this.enabled = true;
     }
 
     public Sand(int x, int y, int height){
         this.x = x;
         this.y = y;
         this.height = height;
+        this.enabled = true;
     }
 
     public void setX(int x){
@@ -29,6 +31,10 @@ public class Sand {
         this.height = height;
     }
 
+    public void setEnabled(boolean enabled){
+        this.enabled = enabled;
+    }
+
     public int getX(){
         return this.x;
     }
@@ -39,5 +45,9 @@ public class Sand {
 
     public int getHeight(){
         return this.height;
+    }
+
+    public boolean getEnabled(){
+        return this.enabled;
     }
 }

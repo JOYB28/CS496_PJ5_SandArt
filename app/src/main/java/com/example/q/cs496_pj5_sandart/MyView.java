@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -15,6 +17,7 @@ import android.view.WindowManager;
 
 import java.util.ArrayList;
 import android.os.Handler;
+import android.widget.Toast;
 
 /**
  * Created by q on 2017-07-31.
@@ -23,11 +26,13 @@ import android.os.Handler;
 public class MyView extends View {
     private Bitmap cacheBitmap;
     private Canvas cacheCanvas;
-    private Paint mPaint;
+    private Paint mPaint = new Paint();
     int width, height;
     ArrayList<Sand> sandArrayList = new ArrayList<>();
+    ArrayList<Sand> enabledSandArrayList = new ArrayList<>();
     Activity mActivity;
-    Sand spSand = new Sand();
+    int total = 0;
+    public static int MODE = 0;
 
     public MyView(Activity activity, Context context){
         super(context);
@@ -43,8 +48,6 @@ public class MyView extends View {
                 sandArrayList.add(sand);
             }
         }
-
-        mPaint = new Paint();
     }
 
     protected void onSizeChanged(int w, int h, int oldw, int oldh){
@@ -52,6 +55,9 @@ public class MyView extends View {
     }
 
     protected void createCacheBitmap(int w, int h){
+        //BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(R.drawable.background);
+        //Bitmap bitmap = bitmapDrawable.getBitmap();
+        //cacheBitmap = Bitmap.createScaledBitmap(bitmap, w, h, false);
         cacheBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         cacheCanvas = new Canvas();
         cacheCanvas.setBitmap(cacheBitmap);
@@ -62,19 +68,134 @@ public class MyView extends View {
             canvas.drawBitmap(cacheBitmap, 0, 0, null);
     }
 
+    public void locate1(Sand sand){
+        int height = sand.getHeight();
+        switch(height){
+            case 0:
+                double random0 = Math.random();
+                if(random0 <= 1 && sand.getEnabled()){
+                    try{
+                        for(int i = sand.getX()-1; i <= sand.getX()+1; i++){
+                            for(int j = sand.getY()-1; j <= sand.getY()+1; j++){
+                                Sand sand1 = sandArrayList.get(j*width+i);
+                                sand1.setHeight(1);
+                                mPaint.setColor(getResources().getColor(R.color.stage2));
+                                cacheCanvas.drawPoint(sand1.getX(), sand1.getY(), mPaint);
+                                invalidate();
+                            }
+                        }
+                    }
+                    catch(Exception e){
+                        select1(sand);
+                    }
+                }
+                else
+                    select1(sand);
+                break;
+            case 1:
+                double random1 = Math.random();
+                if(random1 <= 0.8 && sand.getEnabled()){
+                    try{
+                        for(int i = sand.getX()-1; i <= sand.getX()+1; i++){
+                            for(int j = sand.getY()-1; j <= sand.getY()+1; j++){
+                                Sand sand1 = sandArrayList.get(j*width+i);
+                                sand1.setHeight(2);
+                                mPaint.setColor(getResources().getColor(R.color.stage4));
+                                cacheCanvas.drawPoint(sand1.getX(), sand1.getY(), mPaint);
+                                invalidate();
+                            }
+                        }
+                    }
+                    catch (Exception e){
+                        select1(sand);
+                    }
+                }
+                else
+                    select1(sand);
+                break;
+            case 2:
+                double random2 = Math.random();
+                if(random2 <= 0.3 && sand.getEnabled()){
+                    try{
+                        for(int i = sand.getX()-1; i <= sand.getX()+1; i++){
+                            for(int j = sand.getY()-1; j <= sand.getY()+1; j++){
+                                Sand sand1 = sandArrayList.get(j*width+i);
+                                sand1.setHeight(3);
+                                mPaint.setColor(getResources().getColor(R.color.stage8));
+                                cacheCanvas.drawPoint(sand1.getX(), sand1.getY(), mPaint);
+                                invalidate();
+                            }
+                        }
+                    }
+                    catch (Exception e){
+                        select1(sand);
+                    }
+                }
+                else
+                    select1(sand);
+                break;
+            default:
+                select1(sand);
+            case 3:
+                select1(sand);
+        }
+    }
+
+    public void select1(Sand sand){
+        try{
+            double random = Math.random();
+            Sand sand1;
+            if(random <= 0.08333){
+                sand1 = sandArrayList.get((sand.getY()-2)*width+(sand.getX()-2));
+                locate1(sand1);
+            }
+            else if(random <= 0.16667){
+                sand1 = sandArrayList.get((sand.getY()-2)*width+(sand.getX()+2));
+                locate1(sand1);
+            }
+            else if(random <= 0.25){
+                sand1 = sandArrayList.get((sand.getY()+2)*width+(sand.getX()-2));
+                locate1(sand1);
+            }
+            else if(random <= 0.33333){
+                sand1 = sandArrayList.get((sand.getY()+2)*width+(sand.getX()+2));
+                locate1(sand1);
+            }
+            else if(random <= 0.5){
+                sand1 = sandArrayList.get((sand.getY()-2)*width+sand.getX());
+                locate1(sand1);
+            }
+            else if(random <= 0.66667){
+                sand1 = sandArrayList.get(sand.getY()*width+(sand.getX()-2));
+                locate1(sand1);
+            }
+            else if(random <= 0.83333){
+                sand1 = sandArrayList.get(sand.getY()*width+(sand.getX()+2));
+                locate1(sand1);
+            }
+            else{
+                sand1 = sandArrayList.get((sand.getY()+2)*width+(sand.getX()));
+                locate1(sand1);
+            }
+        }
+        catch (Exception e){
+            return;
+        }
+    }
+
     //locate function
     public void locate(Sand sand){
         int height = sand.getHeight();
         switch(height){
             case 0:
                 double random0 = Math.random();
-                if(random0 <= 0.001){
+                if(random0 <= 0.001 && sand.getEnabled() == true){
                     try{
                         for(int i = sand.getX()-1; i <= sand.getX()+1; i++){
                             for(int j = sand.getY()-1; j <= sand.getY()+1; j++){
                                 Sand sand1 = sandArrayList.get(j*width+i);
                                 sand1.setHeight(1);
-                                mPaint.setColor(getResources().getColor(R.color.stage1));
+                                mPaint.setColor(getResources().getColor(R.color.stage2));
                                 cacheCanvas.drawPoint(sand1.getX(), sand1.getY(), mPaint);
                                 invalidate();
                             }
@@ -89,13 +210,13 @@ public class MyView extends View {
                 break;
             case 1:
                 double random1 = Math.random();
-                if(random1 <= 0.001){
+                if(random1 <= 0.001 && sand.getEnabled() == true){
                     try{
                         for(int i = sand.getX()-1; i <= sand.getX()+1; i++){
                             for(int j = sand.getY()-1; j <= sand.getY()+1; j++){
                                 Sand sand1 = sandArrayList.get(j*width+i);
                                 sand1.setHeight(2);
-                                mPaint.setColor(getResources().getColor(R.color.stage2));
+                                mPaint.setColor(getResources().getColor(R.color.stage4));
                                 cacheCanvas.drawPoint(sand1.getX(), sand1.getY(), mPaint);
                                 invalidate();
                             }
@@ -110,13 +231,13 @@ public class MyView extends View {
                 break;
             case 2:
                 double random2 = Math.random();
-                if(random2 <= 0.0001){
+                if(random2 <= 0.0001 && sand.getEnabled() == true){
                     try{
                         for(int i = sand.getX()-1; i <= sand.getX()+1; i++){
                             for(int j = sand.getY()-1; j <= sand.getY()+1; j++){
                                 Sand sand1 = sandArrayList.get(j*width+i);
                                 sand1.setHeight(3);
-                                mPaint.setColor(getResources().getColor(R.color.stage3));
+                                mPaint.setColor(getResources().getColor(R.color.stage8));
                                 cacheCanvas.drawPoint(sand1.getX(), sand1.getY(), mPaint);
                                 invalidate();
                             }
@@ -419,19 +540,84 @@ public class MyView extends View {
 
         switch (action){
             case MotionEvent.ACTION_UP:
+                if(MODE != 0){
+                    mPaint.setStrokeWidth(0f);
+                    final Sand sand1 = sandArrayList.get(Y*width+X);
+                    for(int i = 0 ; i <= Math.min(100, total/100); i++){
+                        locate(sand1);
+                        invalidate();
+                    }
+                    Log.e("hello", ""+total);
+                    total = 0;
+                    for(int i = 0; i < enabledSandArrayList.size(); i++){
+                        enabledSandArrayList.get(i).setEnabled(true);
+                    }
+                }
                 break;
             case MotionEvent.ACTION_DOWN:
-                final Sand sand1 = sandArrayList.get(Y*width+X);
-                for(int i = 0; i <= 80; i++){
-                    locate(sand1);
-                    invalidate();
+                if(MODE == 0){
+                    try{
+                        final Sand sand1 = sandArrayList.get(Y*width+X);
+                        for(int i = 0; i <= 80; i++){
+                            locate(sand1);
+                            invalidate();
+                        }
+                    }
+                    catch (Exception e){
+
+                    }
+                }
+                else {
+                    mPaint.setColor(Color.WHITE);
+                    mPaint.setStrokeWidth(30f);
+                    cacheCanvas.drawPoint(X, Y, mPaint);
+                    for(int i = -15; i <= 15; i++){
+                        for(int j = -15; j <= 15; j++){
+                            Sand sand = sandArrayList.get((Y+i)*width+(X+j));
+                            enabledSandArrayList.add(sand);
+                            sand.setEnabled(false);
+                            total += sand.getHeight();
+                        }
+                    }
+                    /*
+                    for(int i = 0; i < sand.getHeight(); i++){
+                        sand.setEnabled(false);
+                        locate1(sand);
+                    }
+                    */
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
-                Sand sand2 = sandArrayList.get(Y*width+X);
-                for(int i = 0; i < 80; i++){
-                    locate(sand2);
-                    invalidate();
+                if(MODE == 0){
+                    try{
+                        Sand sand2 = sandArrayList.get(Y*width+X);
+                        for(int i = 0; i < 80; i++){
+                            locate(sand2);
+                            invalidate();
+                        }
+                    }
+                    catch(Exception e){
+
+                    }
+                }
+                else{
+                    mPaint.setColor(Color.WHITE);
+                    mPaint.setStrokeWidth(30f);
+                    cacheCanvas.drawPoint(X, Y, mPaint);
+                    for(int i = -15; i <= 15; i++){
+                        for(int j = -15; j <= 15; j++){
+                            Sand sand = sandArrayList.get((Y+i)*width+(X+j));
+                            enabledSandArrayList.add(sand);
+                            sand.setEnabled(false);
+                            total += sand.getHeight();
+                        }
+                    }
+                    /*
+                    for(int i = 0; i < sand.getHeight(); i++){
+                        sand.setEnabled(false);
+                        locate1(sand);
+                    }
+                    */
                 }
                 break;
         }

@@ -3,8 +3,6 @@ package com.example.q.cs496_pj5_sandart;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -174,36 +172,36 @@ public class MyView extends View {
         if(sand.getX() != 0 && sand.getX() != width-1 && sand.getY() != 0 && sand.getY() != height-1){
             double random = Math.random();
             Sand sand1;
-            if(random <= 0.08){
+            if(random <= 0.08333){
                 sand1 = sandArrayList.get((sand.getY()-1)*width+(sand.getX()-1));
                 locate(sand1);
             }
-            else if(random <= 0.16){
+            else if(random <= 0.16667){
                 sand1 = sandArrayList.get((sand.getY()-1)*width+(sand.getX()+1));
                 locate(sand1);
             }
-            else if(random <= 0.24){
+            else if(random <= 0.25){
                 sand1 = sandArrayList.get((sand.getY()+1)*width+(sand.getX()-1));
                 locate(sand1);
             }
-            else if(random <= 0.32){
+            else if(random <= 0.33333){
                 sand1 = sandArrayList.get((sand.getY()+1)*width+(sand.getX()+1));
                 locate(sand1);
             }
-            else if(random <= 0.48){
+            else if(random <= 0.5){
                 sand1 = sandArrayList.get((sand.getY()-1)*width+sand.getX());
                 locate(sand1);
             }
-            else if(random <= 0.64){
+            else if(random <= 0.66667){
                 sand1 = sandArrayList.get(sand.getY()*width+(sand.getX()-1));
                 locate(sand1);
             }
-            else if(random <= 0.80){
+            else if(random <= 0.83333){
                 sand1 = sandArrayList.get(sand.getY()*width+(sand.getX()+1));
                 locate(sand1);
             }
             else{
-                sand1 = sandArrayList.get((sand.getY()+1)*width+(sand.getX()+1));
+                sand1 = sandArrayList.get((sand.getY()+1)*width+(sand.getX()));
                 locate(sand1);
             }
         }

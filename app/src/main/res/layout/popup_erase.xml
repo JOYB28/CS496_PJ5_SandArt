@@ -7,7 +7,7 @@
               android:elevation="0dp"
               android:minWidth="210dp"
               android:orientation="vertical"
-              android:padding="16dp"
+              android:padding="25dp"
               android:weightSum="1">
 
     <TextView

@@ -5,6 +5,8 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.os.Handler;
+import android.os.Message;
 
 /**
  * Created by q on 2017-07-30.
@@ -18,12 +20,16 @@ public class SplashActivity extends AppCompatActivity {
     Log.e("qwer", "1");
     setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     setContentView(R.layout.activity_splash);
-    try {
-      Thread.sleep(2000);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
-    startActivity(new Intent(this, MainActivity.class));
-    finish();
+    Log.e("qwer", "2");
+
+    Handler handler = new Handler(){
+      public void handleMessage(Message msg){
+        super.handleMessage(msg);
+        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        finish();
+      }
+    };
+    handler.sendEmptyMessageDelayed(0,2000);
+
   }
 }

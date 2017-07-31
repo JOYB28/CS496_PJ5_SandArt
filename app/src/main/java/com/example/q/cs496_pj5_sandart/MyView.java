@@ -29,9 +29,9 @@ public class MyView extends View {
         width = display.getWidth();
         height = display.getHeight();
 
-        for(int i = 0; i < height; i++){
-            for(int j = 0; j < width; j++){
-                Sand sand = new Sand(j, i, 0);
+        for(int j = 0; j < height; j++){
+            for(int i = 0; i < width; i++){
+                Sand sand = new Sand(i, j, 0);
                 sandArrayList.add(sand);
             }
         }
@@ -58,14 +58,19 @@ public class MyView extends View {
         int height = sand.getHeight();
         switch(height){
             case 0:
-                sand.setHeight(1);
-                mPaint.setColor(getResources().getColor(R.color.stage1));
-                cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
-                invalidate();
+                double random0 = Math.random();
+                if(random0 <= 0.01){
+                    sand.setHeight(1);
+                    mPaint.setColor(getResources().getColor(R.color.stage1));
+                    cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
+                    invalidate();
+                }
+                else
+                    select(sand);
                 break;
             case 1:
                 double random1 = Math.random();
-                if(random1 <= 0.70){
+                if(random1 <= 0.0001){
                     sand.setHeight(2);
                     mPaint.setColor(getResources().getColor(R.color.stage2));
                     cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
@@ -76,7 +81,7 @@ public class MyView extends View {
                 break;
             case 2:
                 double random2 = Math.random();
-                if(random2 <= 0.50){
+                if(random2 <= 0.00001){
                     sand.setHeight(3);
                     mPaint.setColor(getResources().getColor(R.color.stage3));
                     cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
@@ -87,7 +92,7 @@ public class MyView extends View {
                 break;
             case 3:
                 double random3 = Math.random();
-                if(random3 <= 0.30){
+                if(random3 <= 0.0000001){
                     sand.setHeight(4);
                     mPaint.setColor(getResources().getColor(R.color.stage4));
                     cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
@@ -98,7 +103,7 @@ public class MyView extends View {
                 break;
             case 4:
                 double random4 = Math.random();
-                if(random4 <= 0.15){
+                if(random4 <= 0.000000001){
                     sand.setHeight(5);
                     mPaint.setColor(getResources().getColor(R.color.stage5));
                     cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
@@ -109,7 +114,7 @@ public class MyView extends View {
                 break;
             case 5:
                 double random5 = Math.random();
-                if(random5 <= 0.10){
+                if(random5 <= 0.000000001){
                     sand.setHeight(6);
                     mPaint.setColor(getResources().getColor(R.color.stage6));
                     cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
@@ -120,7 +125,7 @@ public class MyView extends View {
                 break;
             case 6:
                 double random6 = Math.random();
-                if(random6 <= 0.05){
+                if(random6 <= 0.000000001){
                     sand.setHeight(7);
                     mPaint.setColor(getResources().getColor(R.color.stage7));
                     cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
@@ -131,7 +136,7 @@ public class MyView extends View {
                 break;
             case 7:
                 double random7 = Math.random();
-                if(random7 <= 0.03){
+                if(random7 <= 0.000000001){
                     sand.setHeight(8);
                     mPaint.setColor(getResources().getColor(R.color.stage8));
                     cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
@@ -142,7 +147,7 @@ public class MyView extends View {
                 break;
             case 8:
                 double random8 = Math.random();
-                if(random8 <= 0.01){
+                if(random8 <= 0.000000000001){
                     sand.setHeight(9);
                     mPaint.setColor(getResources().getColor(R.color.stage9));
                     cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
@@ -153,7 +158,7 @@ public class MyView extends View {
                 break;
             case 9:
                 double random9 = Math.random();
-                if(random9 <= 0.008){
+                if(random9 <= 0.00000000000005){
                     sand.setHeight(10);
                     mPaint.setColor(getResources().getColor(R.color.stage10));
                     cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
@@ -369,13 +374,13 @@ public class MyView extends View {
                 break;
             case MotionEvent.ACTION_DOWN:
                 Sand sand1 = sandArrayList.get(Y*width+X);
-                for(int i = 0; i < 1000; i++){
+                for(int i = 0; i < 300; i++){
                     locate(sand1);
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
                 Sand sand2 = sandArrayList.get(Y*width+X);
-                for(int i = 0; i < 1000; i++){
+                for(int i = 0; i < 300; i++){
                     locate(sand2);
                 }
                 break;

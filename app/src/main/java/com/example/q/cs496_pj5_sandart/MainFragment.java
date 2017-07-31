@@ -23,153 +23,155 @@ import butterknife.Bind;
 
 public class MainFragment extends Fragment {
 
-  // Top menu layout
-  LinearLayout topMenu;
-  // Top menu buttons
-  ImageView thick;
-  @Bind(R.id.erase)
-      ImageView erase;
+    // Top menu layout
+    LinearLayout topMenu;
+    // Top menu buttons
+    ImageView thick;
+    @Bind(R.id.erase)
+    ImageView erase;
 
-  ImageView save;
-  @Bind(R.id.trash)
-      ImageView trash;
+    ImageView save;
+    @Bind(R.id.trash)
+    ImageView trash;
 
-  // Where we draw
-  @Bind(R.id.drawing)
-      MyView myView;
+    // Where we draw
+    @Bind(R.id.drawing)
+
+    MyView myView;
 
 
-  //
-  private Context mContext;
+    //
+    private Context mContext;
 
-  private int seekBarThickProgress, seekBarEraseProcess;
-  private View popupLayout, popupEraseLayout;
+    private int seekBarThickProgress, seekBarEraseProcess;
+    private View popupLayout, popupEraseLayout;
 
-  private int mScreenWidth;
-  private int mScreenHeight;
-  private float density;
+    private int mScreenWidth;
+    private int mScreenHeight;
+    private float density;
 
-  @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    setHasOptionsMenu(true);
-    setRetainInstance(false);
-  }
+        setHasOptionsMenu(true);
+        setRetainInstance(false);
+    }
 
-  @Override
-  public void onStart() {
-    super.onStart();
-  }
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
 
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                           Bundle savedInstanceState) {
-    View view = inflater.inflate(R.layout.activity_main, container, false);
-    ButterKnife.bind(this, view);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_main, container, false);
+        ButterKnife.bind(this, view);
 
-    density = getResources().getDisplayMetrics().density;
+        density = getResources().getDisplayMetrics().density;
 
-    DisplayMetrics dm = new DisplayMetrics();
-    getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
+        DisplayMetrics dm = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
 
-    mScreenWidth = dm.widthPixels;
-    mScreenHeight = dm.heightPixels;
+        mScreenWidth = dm.widthPixels;
+        mScreenHeight = dm.heightPixels;
 
-    FrameLayout.LayoutParams p = (FrameLayout.LayoutParams) myView.getLayoutParams();
-    p.width = mScreenWidth;
-    p.height = mScreenHeight;
-    myView.setLayoutParams(p);
+        FrameLayout.LayoutParams p = (FrameLayout.LayoutParams) myView.getLayoutParams();
+        p.width = mScreenWidth;
+        p.height = mScreenHeight;
+        myView.setLayoutParams(p);
 
-    return view;
-  }
+        return view;
+    }
 
-  @Override
-  public void onAttach(Activity activity) {
-    super.onAttach(activity);
-  }
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
 
-  @Override
-  public void onDetach() {
-    super.onDetach();
-  }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
 
-  @Override
-  public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-    super.onActivityCreated(savedInstanceState);
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-    //myView.setOnDr
+        //myView.setOnDr
 
-    // TODO: Thick button
+        // TODO: Thick button
 
-    // TODO: Erase button
-    erase.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        if(myView.getMode() == MyView.ERASE) {
-          //showPopup(viewm MyView.ERASE);
+        // TODO: Erase button
+        erase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(myView.getMode() == MyView.ERASE) {
+                    //showPopup(viewm MyView.ERASE);
+                } else {
+                    myView.setMode(myView.ERASE);
+                    //setAlpha(draw, 0.4f);
+                    myView.MODE = 1;
+                    setAlpha(erase, 1f);
+                }
+            }
+        });
+        // TODO: Save button
+
+        // TODO: Trash button
+        trash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                askForTrash();
+            }
+
+            private void askForTrash() {
+                new MaterialDialog.Builder(getActivity())
+                        .content("모래를 지웁니다")
+                        .positiveText("확인")
+                        .callback(new MaterialDialog.ButtonCallback() {
+                            @Override
+                            public void onPositive(MaterialDialog dialog) {
+                                myView.trash();
+                            }
+                        }).build().show();
+            }
+        });
+        // TODO: Shake button
+
+    }
+
+    void setAlpha(View v, float alpha) {
+        if (Build.VERSION.SDK_INT < 11) {
+            AlphaAnimation animation = new AlphaAnimation(1.0F, alpha);
+            animation.setFillAfter(true);
+            v.startAnimation(animation);
         } else {
-          myView.setMode(myView.ERASE);
-          //setAlpha(draw, 0.4f);
-          setAlpha(erase, 1f);
+            v.setAlpha(alpha);
         }
-      }
-    });
-    // TODO: Save button
 
-    // TODO: Trash button
-    trash.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        askForTrash();
-      }
-
-      private void askForTrash() {
-        new MaterialDialog.Builder(getActivity())
-            .content("모래를 지웁니다")
-            .positiveText("확인")
-            .callback(new MaterialDialog.ButtonCallback() {
-              @Override
-              public void onPositive(MaterialDialog dialog) {
-                myView.trash();
-              }
-            }).build().show();
-      }
-    });
-    // TODO: Shake button
-
-  }
-
-  void setAlpha(View v, float alpha) {
-    if (Build.VERSION.SDK_INT < 11) {
-      AlphaAnimation animation = new AlphaAnimation(1.0F, alpha);
-      animation.setFillAfter(true);
-      v.startAnimation(animation);
-    } else {
-      v.setAlpha(alpha);
     }
 
-  }
-
-  @Override
-  public void onPause() {
-    super.onPause();
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case android.R.id.home:
-        getActivity().onBackPressed();
-        break;
+    @Override
+    public void onPause() {
+        super.onPause();
     }
-    return super.onOptionsItemSelected(item);
-  }
 
-  @Override
-  public void onDestroyView() {
-    super.onDestroyView();
-    //ButterKnife.unbind(this);
-  }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                getActivity().onBackPressed();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        //ButterKnife.unbind(this);
+    }
 
 }

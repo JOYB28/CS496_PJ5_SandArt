@@ -4,7 +4,14 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="stage1">#996600</color>
-    <color name="stage2">#663300</color>
-    <color name="stage3">#330000</color>
+    <color name="stage1">#C89500</color>
+    <color name="stage2">#C08D00</color>
+    <color name="stage3">#B68300</color>
+    <color name="stage4">#AC7900</color>
+    <color name="stage5">#A26F00</color>
+    <color name="stage6">#986500</color>
+    <color name="stage7">#8E5B00</color>
+    <color name="stage8">#845100</color>
+    <color name="stage9">#7A4700</color>
+    <color name="stage10">#703D00</color>
 </resources>

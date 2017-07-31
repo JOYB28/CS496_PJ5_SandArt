@@ -3,6 +3,8 @@ package com.example.q.cs496_pj5_sandart;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -30,9 +32,9 @@ public class MyView extends View {
         width = display.getWidth();
         height = display.getHeight();
 
-        for(int i = 0; i < width; i++){
-            for(int j = 0; j < height; j++){
-                Sand sand = new Sand(i, j, 0);
+        for(int i = 0; i < height; i++){
+            for(int j = 0; j < width; j++){
+                Sand sand = new Sand(j, i, 0);
                 sandArrayList.add(sand);
             }
         }
@@ -62,28 +64,108 @@ public class MyView extends View {
                 sand.setHeight(1);
                 mPaint.setColor(getResources().getColor(R.color.stage1));
                 cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
+                invalidate();
                 break;
             case 1:
                 double random1 = Math.random();
-                if(random1 <= 0.99){
+                if(random1 <= 0.70){
                     sand.setHeight(2);
                     mPaint.setColor(getResources().getColor(R.color.stage2));
                     cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
+                    invalidate();
                 }
                 else
                     select(sand);
                 break;
             case 2:
                 double random2 = Math.random();
-                if(random2 <= 0.95){
+                if(random2 <= 0.50){
                     sand.setHeight(3);
                     mPaint.setColor(getResources().getColor(R.color.stage3));
                     cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
+                    invalidate();
                 }
                 else
                     select(sand);
                 break;
             case 3:
+                double random3 = Math.random();
+                if(random3 <= 0.30){
+                    sand.setHeight(4);
+                    mPaint.setColor(getResources().getColor(R.color.stage4));
+                    cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
+                    invalidate();
+                }
+                else
+                    select(sand);
+                break;
+            case 4:
+                double random4 = Math.random();
+                if(random4 <= 0.15){
+                    sand.setHeight(5);
+                    mPaint.setColor(getResources().getColor(R.color.stage5));
+                    cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
+                    invalidate();
+                }
+                else
+                    select(sand);
+                break;
+            case 5:
+                double random5 = Math.random();
+                if(random5 <= 0.10){
+                    sand.setHeight(6);
+                    mPaint.setColor(getResources().getColor(R.color.stage6));
+                    cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
+                    invalidate();
+                }
+                else
+                    select(sand);
+                break;
+            case 6:
+                double random6 = Math.random();
+                if(random6 <= 0.05){
+                    sand.setHeight(7);
+                    mPaint.setColor(getResources().getColor(R.color.stage7));
+                    cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
+                    invalidate();
+                }
+                else
+                    select(sand);
+                break;
+            case 7:
+                double random7 = Math.random();
+                if(random7 <= 0.03){
+                    sand.setHeight(8);
+                    mPaint.setColor(getResources().getColor(R.color.stage8));
+                    cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
+                    invalidate();
+                }
+                else
+                    select(sand);
+                break;
+            case 8:
+                double random8 = Math.random();
+                if(random8 <= 0.01){
+                    sand.setHeight(9);
+                    mPaint.setColor(getResources().getColor(R.color.stage9));
+                    cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
+                    invalidate();
+                }
+                else
+                    select(sand);
+                break;
+            case 9:
+                double random9 = Math.random();
+                if(random9 <= 0.008){
+                    sand.setHeight(10);
+                    mPaint.setColor(getResources().getColor(R.color.stage10));
+                    cacheCanvas.drawPoint(sand.getX(), sand.getY(), mPaint);
+                    invalidate();
+                }
+                else
+                    select(sand);
+                break;
+            case 10:
                 select(sand);
                 break;
         }

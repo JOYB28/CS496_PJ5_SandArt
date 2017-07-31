@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     setContentView(R.layout.activity_main);
 
     // Add views to linear layout
-    LinearLayout layout = (LinearLayout) findViewById(R.id.mainView);
+    LinearLayout layout = (LinearLayout) findViewById(R.id.activityMain);
     final MyView myView = new MyView(this, getApplicationContext());
     layout.addView(myView, 0);
 

@@ -84,18 +84,13 @@
 
         </LinearLayout>
 
-        <FrameLayout
+        <LinearLayout
+            android:id="@+id/activityMain"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.example.q.cs496_pj5_sandart.MyView
-                android:id="@+id/drawing"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-            </com.example.q.cs496_pj5_sandart.MyView>
-        </FrameLayout>
+        </LinearLayout>
     </LinearLayout>
 
 

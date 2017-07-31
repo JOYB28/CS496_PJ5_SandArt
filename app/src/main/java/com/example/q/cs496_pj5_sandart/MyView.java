@@ -62,6 +62,7 @@ public class MyView extends View {
             canvas.drawBitmap(cacheBitmap, 0, 0, null);
     }
 
+    //locate function
     public void locate(Sand sand){
         int height = sand.getHeight();
         switch(height){

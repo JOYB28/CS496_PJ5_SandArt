@@ -5,6 +5,10 @@ import android.app.ProgressDialog;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -23,7 +27,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SensorEventListener{
 
     private final static String TAG = "AppPermission";
     private final int MY_PERMISSION_REQUEST_STORAGE = 100;
@@ -40,6 +44,22 @@ public class MainActivity extends AppCompatActivity {
 
     private Handler mHandler;
     private ProgressDialog mProgressDialog;
+
+    private long lastTime;
+    private float speed;
+    private float lastX;
+    private float lastY;
+    private float lastZ;
+    private float x, y, z;
+
+    private static final int SHAKE_THRESHOLD = 1500;
+    private static final int DATA_X = SensorManager.DATA_X;
+    private static final int DATA_Y = SensorManager.DATA_Y;
+    private static final int DATA_Z = SensorManager.DATA_Z;
+
+    private int isPermitted = 0;
+    private SensorManager sensorManager;
+    private Sensor accelerormeterSensor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,42 +189,19 @@ public class MainActivity extends AppCompatActivity {
         initialize.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                mHandler = new Handler();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        mProgressDialog = ProgressDialog.show(MainActivity.this,"",
-                            "잠시 기다려 주세요.", true);
-                        mHandler.postDelayed( new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    if (mProgressDialog != null && mProgressDialog.isShowing()) {
-                                        mProgressDialog.dismiss();
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, 5000);
-                    }
-                });
-                myView.initialize();
-
-
-
-
-
+                isPermitted = 1;
             }
         }));
 
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accelerormeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        if (accelerormeterSensor != null)
+            sensorManager.registerListener(this, accelerormeterSensor, SensorManager.SENSOR_DELAY_GAME);
     }
 
     //save image
@@ -229,8 +226,63 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (sensorManager != null)
+            sensorManager.unregisterListener(this);
+    }
 
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            long currentTime = System.currentTimeMillis();
+            long gabOfTime = (currentTime - lastTime);
+            if (gabOfTime > 100) {
+                lastTime = currentTime;
+                x = event.values[SensorManager.DATA_X];
+                y = event.values[SensorManager.DATA_Y];
+                z = event.values[SensorManager.DATA_Z];
+
+                speed = Math.abs(x + y + z - lastX - lastY - lastZ) / gabOfTime * 10000;
+
+                if (speed > SHAKE_THRESHOLD && isPermitted == 1) {
+                    myView.initialize();
+                    mHandler = new Handler();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            mProgressDialog = ProgressDialog.show(MainActivity.this,"",
+                                    "잠시 기다려 주세요.", true);
+                            mHandler.postDelayed( new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+                                            mProgressDialog.dismiss();
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            }, 5000);
+                        }
+                    });
+                    isPermitted = 0;
+                }
+
+                lastX = event.values[DATA_X];
+                lastY = event.values[DATA_Y];
+                lastZ = event.values[DATA_Z];
+            }
+        }
+    }
     //permission
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

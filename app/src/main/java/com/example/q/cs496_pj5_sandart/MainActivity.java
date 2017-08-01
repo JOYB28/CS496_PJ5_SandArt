@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     ImageView save;
     ImageView trash;
 
-
     private int seekBarThickProgress, seekBarEraseProcess;
     private View popupLayout, popupEraseLayout;
 
@@ -46,14 +45,16 @@ public class MainActivity extends AppCompatActivity {
         erase.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myView.MODE = 1;
+                if(myView.MODE == 0)
+                    myView.MODE = 1;
+                else
+                    myView.MODE = 0;
             }
         }));
 
         thick.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("hello", "thick");
                 myView.shuffle();
             }
         }));
@@ -62,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public  void onClick(View v){
                 myView.trash();
-                Log.e("hello", "trash");
             }
         }));
     }

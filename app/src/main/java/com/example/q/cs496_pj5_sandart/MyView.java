@@ -4,16 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-
-import com.example.q.cs496_pj5_sandart.R;
-import com.example.q.cs496_pj5_sandart.Sand;
 
 import java.util.ArrayList;
 
@@ -47,6 +43,8 @@ public class MyView extends View {
                 sandArrayList.add(sand);
             }
         }
+
+
     }
     // initialize (shuffle)
     public void initialize(){

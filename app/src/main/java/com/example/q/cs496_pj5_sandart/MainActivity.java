@@ -1,11 +1,14 @@
 package com.example.q.cs496_pj5_sandart;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -35,11 +38,14 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar seekBarProgress, seekBarEraseProcess;
     private View popupLayout, popupEraseLayout;
 
+    private Handler mHandler;
+    private ProgressDialog mProgressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 어플 가로 고정
-        // setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
 
         checkPermission();
@@ -163,7 +169,34 @@ public class MainActivity extends AppCompatActivity {
         initialize.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                mHandler = new Handler();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        mProgressDialog = ProgressDialog.show(MainActivity.this,"",
+                            "잠시 기다려 주세요.", true);
+                        mHandler.postDelayed( new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    if (mProgressDialog != null && mProgressDialog.isShowing()) {
+                                        mProgressDialog.dismiss();
+                                    }
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }, 5000);
+                    }
+                });
                 myView.initialize();
+
+
+
+
+
             }
         }));
 
@@ -259,5 +292,6 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
 
 }

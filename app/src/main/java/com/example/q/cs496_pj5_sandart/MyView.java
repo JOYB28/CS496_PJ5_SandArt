@@ -6,18 +6,12 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
-import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
-import android.os.Handler;
-import android.widget.Toast;
 
 /**
  * Created by q on 2017-07-31.
@@ -48,8 +42,8 @@ public class MyView extends View {
             }
         }
     }
-
-    public void shuffle(){
+    // initialize (shuffle)
+    public void initialize(){
         sandArrayList.clear();
         createCacheBitmap(width, height);
         for(int j = 0; j < height; j++){
@@ -79,7 +73,7 @@ public class MyView extends View {
             }
         }
     }
-
+    // trash
     public void trash(){
         mPaint.setColor(Color.WHITE);
         cacheCanvas.drawRect(0, 0, width, height, mPaint);

@@ -1,15 +1,18 @@
-package com.example.q.cs496_pj5_sandart;
+package com.example.q.cs496_pj5_sandart.view;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+
+import com.example.q.cs496_pj5_sandart.R;
+import com.example.q.cs496_pj5_sandart.Sand;
 
 import java.util.ArrayList;
 
@@ -41,41 +44,73 @@ public class MyView extends View {
                 sandArrayList.add(sand);
             }
         }
+
+
     }
     // initialize (shuffle)
     public void initialize(){
-        sandArrayList.clear();
-        createCacheBitmap(width, height);
+        //sandArrayList.clear();
+        //createCacheBitmap(width, height);
         for(int j = 0; j < height; j++){
             for(int i = 0; i < width; i++){
                 double random = Math.random()*4;
-                Sand sand;
+                final Sand sand1 = sandArrayList.get(j*width+i);
+                int height = sand1.getHeight();
+
                 if(random <= 3.5){
-                    sand = new Sand(i, j, 0);
+
                 }
-                else if(random <= 3.7){
-                    sand = new Sand(i, j, 1);
-                    mPaint.setColor(getResources().getColor(R.color.stage2));
-                    cacheCanvas.drawPoint(i, j, mPaint);
+                else if(random <= 3.7) {
+                    switch(height){
+                        case 0:
+                            sand1.setHeight(1);
+                            mPaint.setColor(getResources().getColor(R.color.stage2));
+                            cacheCanvas.drawPoint(i, j, mPaint);
+                        case 1:
+                            sand1.setHeight(2);
+                            mPaint.setColor(getResources().getColor(R.color.stage4));
+                            cacheCanvas.drawPoint(i, j, mPaint);
+                        case 2:
+                            sand1.setHeight(3);
+                            mPaint.setColor(getResources().getColor(R.color.stage8));
+                            cacheCanvas.drawPoint(i, j, mPaint);
+                        case 3:
+                        default:
+                            break;
+                    }
                 }
                 else if(random <= 3.99){
-                    sand = new Sand(i, j, 2);
-                    mPaint.setColor(getResources().getColor(R.color.stage4));
-                    cacheCanvas.drawPoint(i, j, mPaint);
+                    switch(height){
+                        case 0:
+                            sand1.setHeight(2);
+                            mPaint.setColor(getResources().getColor(R.color.stage4));
+                            cacheCanvas.drawPoint(i, j, mPaint);
+                        case 1:
+                            sand1.setHeight(3);
+                            mPaint.setColor(getResources().getColor(R.color.stage8));
+                            cacheCanvas.drawPoint(i, j, mPaint);
+                        case 2:
+                            sand1.setHeight(3);
+                            mPaint.setColor(getResources().getColor(R.color.stage8));
+                            cacheCanvas.drawPoint(i, j, mPaint);
+                        case 3:
+                        default:
+                            break;
+                    }
                 }
                 else{
-                    sand = new Sand(i, j, 3);
+                    sand1.setHeight(3);
                     mPaint.setColor(getResources().getColor(R.color.stage8));
                     cacheCanvas.drawPoint(i, j, mPaint);
                 }
                 invalidate();
-                sandArrayList.add(sand);
+                //sandArrayList.add(sand);
             }
         }
     }
     // trash
     public void trash(){
-        mPaint.setColor(Color.WHITE);
+        mPaint.setColor(getResources().getColor(R.color.stage0));
         cacheCanvas.drawRect(0, 0, width, height, mPaint);
         invalidate();
         for(int i = 0; i < sandArrayList.size(); i++){
@@ -88,12 +123,13 @@ public class MyView extends View {
     }
 
     protected void createCacheBitmap(int w, int h){
-        /* use when custom bitmap is needed
-        BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(R.drawable.background);
+        //use when custom bitmap is needed
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(R.drawable.bg);
         Bitmap bitmap = bitmapDrawable.getBitmap();
         cacheBitmap = Bitmap.createScaledBitmap(bitmap, w, h, false);
-        */
-        cacheBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_4444);
+        //
+
+        //cacheBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_4444);
         cacheCanvas = new Canvas();
         cacheCanvas.setBitmap(cacheBitmap);
     }
@@ -522,7 +558,7 @@ public class MyView extends View {
                     }
                 }
                 else {
-                    mPaint.setColor(Color.WHITE);
+                    mPaint.setColor(getResources().getColor(R.color.stage2));
                     mPaint.setStrokeWidth(30f);
                     cacheCanvas.drawPoint(X, Y, mPaint);
                     for(int i = -15; i <= 15; i++){
@@ -544,12 +580,11 @@ public class MyView extends View {
                             invalidate();
                         }
                     }
-                    catch(Exception e){
-
+                    catch(Exception e) {
                     }
                 }
                 else{
-                    mPaint.setColor(Color.WHITE);
+                    mPaint.setColor(getResources().getColor(R.color.stage0));
                     mPaint.setStrokeWidth(30f);
                     cacheCanvas.drawPoint(X, Y, mPaint);
                     for(int i = -15; i <= 15; i++){

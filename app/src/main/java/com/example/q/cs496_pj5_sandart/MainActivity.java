@@ -2,6 +2,7 @@ package com.example.q.cs496_pj5_sandart;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -9,6 +10,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -36,11 +38,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     ImageView thick, erase, save, trash, initialize;
 
     private MyView myView;
+    private Context mContext;
 
     private int thickMode = 0;
     private int eraseMode = 0;
     private SeekBar seekBarProgress, seekBarEraseProcess;
     private View popupLayout, popupEraseLayout;
+
+    private boolean isEnded = false;
 
     private Handler mHandler;
     private ProgressDialog mProgressDialog;
@@ -68,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
 
+        mContext = getApplicationContext();
         checkPermission();
         // Add views to linear layout
         final LinearLayout layout = (LinearLayout) findViewById(R.id.activityMain);
@@ -171,9 +177,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             @Override
             public void onClick(View view) {
                 saveCanvasImage();
-                Toast.makeText(getApplicationContext(), "Saved!", Toast.LENGTH_LONG).show();
-
-
+                Toast.makeText(getApplicationContext(), "저장 되었습니다!", Toast.LENGTH_LONG).show();
             }
         }));
 
@@ -255,7 +259,33 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 speed = Math.abs(x + y + z - lastX - lastY - lastZ) / gabOfTime * 10000;
 
                 if (speed > SHAKE_THRESHOLD && isPermitted == 1) {
-                    myView.initialize();
+                    /*
+                    mProgressDialog = new ProgressDialog(MainActivity.this);
+                    mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                    mProgressDialog.setMessage("잠시 기달");
+                    mProgressDialog.show();
+                    */
+                    /*
+                    new Thread() {
+                        public void run() {
+                            try{
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // remove the retrieving of data from this method and let it just build the views
+                                        myView.initialize();
+                                        mProgressDialog.dismiss();
+                                    }
+                                });
+                            } catch (Exception e) {
+                                Log.e("tag", e.getMessage());
+                            }
+                        }
+                    }.start();
+                    */
+                    initHandler handler = new initHandler();
+                    handler.execute();
+                    /*
                     mHandler = new Handler();
                     runOnUiThread(new Runnable() {
                         @Override
@@ -277,6 +307,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                             }, 5000);
                         }
                     });
+                    */
                     isPermitted = 0;
                 }
 
@@ -284,6 +315,36 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 lastY = event.values[DATA_Y];
                 lastZ = event.values[DATA_Z];
             }
+        }
+    }
+    private class initHandler extends AsyncTask<String, Void, String> {
+        private ProgressDialog progressDialog;
+
+        public initHandler(){
+            progressDialog = new ProgressDialog(MainActivity.this);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        }
+
+        protected void onPreExecute(){
+            progressDialog.setMessage("잠시 기달");
+            progressDialog.show();
+            super.onPreExecute();
+        }
+
+        protected String doInBackground(String... params) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    myView.initialize();
+                }
+            });
+            return "hello";
+        }
+
+        protected void onPostExecute(String result) {
+            Toast.makeText(getApplicationContext(), "완료 되었습니다!", Toast.LENGTH_LONG).show();
+            if(progressDialog.isShowing())
+                progressDialog.dismiss();
         }
     }
     //permission

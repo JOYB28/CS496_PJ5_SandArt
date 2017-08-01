@@ -1,6 +1,7 @@
 package com.example.q.cs496_pj5_sandart;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -10,6 +11,7 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,7 @@ public class MyView extends View {
     public static int ERASENESS = 30;
     int width, height;
     int total = 0;
+    private ProgressDialog mProgressDialog;
     ArrayList<Sand> sandArrayList = new ArrayList<>();
     ArrayList<Sand> enabledSandArrayList = new ArrayList<>();
     Activity mActivity;
@@ -97,15 +100,15 @@ public class MyView extends View {
                             break;
                     }
                 }
-                else{
+                else {
                     sand1.setHeight(3);
                     mPaint.setColor(getResources().getColor(R.color.stage8));
                     cacheCanvas.drawPoint(i, j, mPaint);
                 }
-                invalidate();
                 //sandArrayList.add(sand);
             }
         }
+        invalidate();
     }
     // trash
     public void trash(){

@@ -1,4 +1,4 @@
-package com.example.q.cs496_pj5_sandart;
+package com.example.q.cs496_pj5_sandart.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -9,8 +9,11 @@ import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnTouchListener;
+import android.view.WindowManager;
+
+import com.example.q.cs496_pj5_sandart.R;
+import com.example.q.cs496_pj5_sandart.Sand;
 
 import java.util.ArrayList;
 
@@ -29,16 +32,16 @@ public class MyView extends View implements OnTouchListener {
 
   Sand spSand = new Sand();
   // Mode value
-  public static final int DRAW = 0;
+  public static final int THICK = 0;
   public static final int ERASE = 1;
   // Default value
-  public static final int DEFAULT_DRAW_NUMBER = 80;
-  public static final int DEFAULT_DRAW_SIZE = 50;
+  public static final int DEFAULT_THICK_NUMBER = 80;
+  public static final int DEFAULT_ERASE_SIZE = 50;
 
-  private float drawNumber = DEFAULT_DRAW_NUMBER;
-  private float eraserSize = DEFAULT_DRAW_SIZE;
+  private float thickNumber = DEFAULT_THICK_NUMBER;
+  private float eraserSize = DEFAULT_ERASE_SIZE;
 
-  private int mode = DRAW;
+  private int mode = THICK;
 
 
 
@@ -70,7 +73,7 @@ public class MyView extends View implements OnTouchListener {
   }
 
   protected void createCacheBitmap(int w, int h){
-    cacheBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+    Bitmap cacheBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
     cacheCanvas = new Canvas();
     cacheCanvas.setBitmap(cacheBitmap);
   }
@@ -81,6 +84,7 @@ public class MyView extends View implements OnTouchListener {
   }
 
   public void locate(Sand sand){
+    Log.e("locate", "sand drawed");
     int height = sand.getHeight();
     switch(height){
       case 0:
@@ -348,7 +352,7 @@ public class MyView extends View implements OnTouchListener {
   }
 
   public void setMode(int mode) {
-    if (mode == DRAW || mode == ERASE) {
+    if (mode == THICK || mode == ERASE) {
       this.mode = mode;
     }
   }
@@ -368,7 +372,8 @@ public class MyView extends View implements OnTouchListener {
       case MotionEvent.ACTION_DOWN:
         try {
           final Sand sand1 = sandArrayList.get(Y*width+X);
-          for(int i = 0; i <= drawNumber; i++){
+          for(int i = 0; i <= thickNumber; i++){
+            Log.e("asd","asd");
             locate(sand1);
             invalidate();
           }
@@ -379,7 +384,8 @@ public class MyView extends View implements OnTouchListener {
       case MotionEvent.ACTION_MOVE:
         try {
           Sand sand2 = sandArrayList.get(Y*width+X);
-          for(int i = 0; i < drawNumber; i++){
+          for(int i = 0; i <= thickNumber; i++){
+            Log.e("asd","sss");
             locate(sand2);
             invalidate();
           }
@@ -415,6 +421,17 @@ public class MyView extends View implements OnTouchListener {
     Log.e("qqqq", "!!!");
 
     invalidate();
+  }
+
+  public void setSize(int size, int eraseOrThick) {
+    switch (eraseOrThick) {
+      case THICK:
+        thickNumber = size;
+        break;
+      case ERASE:
+        eraserSize = size;
+        break;
+    }
   }
 
 }

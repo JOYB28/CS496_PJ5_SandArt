@@ -88,13 +88,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.example.q.cs496_pj5_sandart.MyView
-                android:id="@+id/drawing"
+            <com.example.q.cs496_pj5_sandart.view.MyView
+                  android:id="@+id/drawing"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-            </com.example.q.cs496_pj5_sandart.MyView>
+                android:layout_gravity="center"/>
         </FrameLayout>
     </LinearLayout>
 

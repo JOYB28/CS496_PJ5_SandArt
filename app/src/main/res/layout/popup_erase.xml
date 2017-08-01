@@ -29,7 +29,7 @@
             app:srcCompat="@drawable/circle"/>
 
         <SeekBar
-            android:id="@+id/seekBar3"
+            android:id="@+id/eraseSeekbar"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1.32"

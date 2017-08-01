@@ -18,6 +18,8 @@ public class SplashActivity extends AppCompatActivity {
         //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_splash);
 
+        //startActivity(new Intent(SplashActivity.this, MainActivity.class));
+
         Handler handler = new Handler(){
             public void handleMessage(Message msg){
                 super.handleMessage(msg);
@@ -26,5 +28,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         };
         handler.sendEmptyMessageDelayed(0,2000);
+
     }
 }

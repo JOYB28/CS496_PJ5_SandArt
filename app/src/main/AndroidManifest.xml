@@ -3,7 +3,6 @@
           package="com.example.q.cs496_pj5_sandart">
 
     <!-- 사진 저장 권한 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application

@@ -18,8 +18,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static android.os.Build.VERSION_CODES.M;
-
 public class MainActivity extends AppCompatActivity {
 
     private final static String TAG = "AppPermission";
@@ -35,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView initialize;
 
     //
-    private com.example.q.cs496_pj5_sandart.MyView myView;
+    private MyView myView;
 
 
     private int seekBarThickProgress, seekBarEraseProcess;
@@ -52,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Add views to linear layout
         final LinearLayout layout = (LinearLayout) findViewById(R.id.activityMain);
-        myView = new com.example.q.cs496_pj5_sandart.MyView(this, getApplicationContext());
+        myView = new MyView(this, getApplicationContext());
         layout.addView(myView, 0);
 
         // Binding
@@ -161,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkPermission() {
-        if (Build.VERSION.SDK_INT >= M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
             Log.i(TAG, "CheckPermission : " + checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE));
             if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)

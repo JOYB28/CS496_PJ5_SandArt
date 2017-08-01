@@ -50,6 +50,48 @@ public class MyView extends View {
         }
     }
 
+    public void shuffle(){
+        sandArrayList.clear();
+        createCacheBitmap(width, height);
+        for(int j = 0; j < height/100; j++){
+            for(int i = 0; i < width/100; i++){
+                double random = Math.random()*4;
+                Sand sand;
+                if(random <= 3){
+                    sand = new Sand(i, j, 0);
+                }
+                else if(random <= 3.5){
+                    sand = new Sand(i, j, 1);
+                    mPaint.setColor(getResources().getColor(R.color.stage2));
+                    cacheCanvas.drawPoint(i, j, mPaint);
+                }
+                else if(random <= 3.99){
+                    sand = new Sand(i, j, 2);
+                    mPaint.setColor(getResources().getColor(R.color.stage4));
+                    cacheCanvas.drawPoint(i, j, mPaint);
+                }
+                else{
+                    sand = new Sand(i, j, 3);
+                    mPaint.setColor(getResources().getColor(R.color.stage8));
+                    cacheCanvas.drawPoint(i, j, mPaint);
+                }
+                sandArrayList.add(sand);
+            }
+            Log.e("dho", "dkseho");
+        }
+    }
+
+    public void trash(){
+        createCacheBitmap(width, height);
+        sandArrayList.clear();
+        for(int j = 0; j < height; j++){
+            for(int i = 0; i < width; i++){
+                Sand sand = new Sand(i, j, 0);
+                sandArrayList.add(sand);
+            }
+        }
+    }
+
     protected void onSizeChanged(int w, int h, int oldw, int oldh){
         createCacheBitmap(w, h);
     }

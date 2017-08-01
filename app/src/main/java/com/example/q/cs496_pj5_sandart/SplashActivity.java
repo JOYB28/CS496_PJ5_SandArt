@@ -22,6 +22,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         Log.e("qwer", "2");
 
+        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+        /*
         Handler handler = new Handler(){
             public void handleMessage(Message msg){
                 super.handleMessage(msg);
@@ -30,6 +32,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         };
         handler.sendEmptyMessageDelayed(0,2000);
-
+        */
     }
 }

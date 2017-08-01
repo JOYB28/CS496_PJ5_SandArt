@@ -41,28 +41,6 @@
                 android:src="@drawable/erase"/>
 
             <ImageView
-                android:id="@+id/undo"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:alpha="0.4"
-                android:src="@drawable/undo"/>
-
-            <ImageView
-                android:id="@+id/redo"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:alpha="0.4"
-                android:src="@drawable/redo"/>
-
-            <ImageView
                 android:id="@+id/save"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
@@ -82,18 +60,25 @@
                 android:layout_weight="1"
                 android:src="@drawable/trash"/>
 
+            <ImageView
+                android:id="@+id/initialize"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:src="@drawable/initialize"/>
+
         </LinearLayout>
 
-        <FrameLayout
+        <LinearLayout
+            android:id="@+id/activityMain"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.example.q.cs496_pj5_sandart.view.MyView
-                  android:id="@+id/drawing"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"/>
-        </FrameLayout>
+        </LinearLayout>
     </LinearLayout>
 
 

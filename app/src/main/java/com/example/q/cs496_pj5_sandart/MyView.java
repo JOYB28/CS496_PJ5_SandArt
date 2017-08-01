@@ -558,8 +558,7 @@ public class MyView extends View {
                 }
                 else {
                     mPaint.setColor(getResources().getColor(R.color.stage0));
-                    mPaint.setStrokeWidth((float) ERASENESS);
-                    cacheCanvas.drawPoint(X, Y, mPaint);
+                    cacheCanvas.drawCircle(X, Y, ERASENESS/2, mPaint);
                     for(int i = -ERASENESS/2; i <= ERASENESS/2; i++){
                         for(int j = -ERASENESS/2; j <= ERASENESS/2; j++){
                             Sand sand = sandArrayList.get((Y+i)*width+(X+j));
@@ -584,8 +583,7 @@ public class MyView extends View {
                 }
                 else{
                     mPaint.setColor(getResources().getColor(R.color.stage0));
-                    mPaint.setStrokeWidth((float) ERASENESS);
-                    cacheCanvas.drawPoint(X, Y, mPaint);
+                    cacheCanvas.drawCircle(X, Y, ERASENESS/2, mPaint);
                     for(int i = -ERASENESS/2; i <= ERASENESS/2; i++){
                         for(int j = -ERASENESS/2; j <= ERASENESS/2; j++){
                             Sand sand = sandArrayList.get((Y+i)*width+(X+j));

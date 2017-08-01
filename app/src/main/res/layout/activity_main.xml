@@ -73,6 +73,27 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/thickness"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="모래 굵기 조정"/>
+
+            <SeekBar
+                android:id="@+id/seekBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:max="100"
+                android:progress="10"/>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/activityMain"
             android:orientation="horizontal"
             android:layout_width="match_parent"

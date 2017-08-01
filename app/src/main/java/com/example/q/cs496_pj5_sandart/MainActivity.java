@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -23,20 +25,14 @@ public class MainActivity extends AppCompatActivity {
     private final static String TAG = "AppPermission";
     private final int MY_PERMISSION_REQUEST_STORAGE = 100;
 
-    // Top menu layout
     LinearLayout topMenu;
-    // Top menu buttons
-    ImageView thick;
-    ImageView erase;
-    ImageView save;
-    ImageView trash;
-    ImageView initialize;
+    ImageView thick, erase, save, trash, initialize;
 
-    //
     private MyView myView;
 
-
-    private int seekBarThickProgress, seekBarEraseProcess;
+    private int thickMode = 0;
+    private int eraseMode = 0;
+    private SeekBar seekBarProgress, seekBarEraseProcess;
     private View popupLayout, popupEraseLayout;
 
     @Override
@@ -47,11 +43,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         checkPermission();
-
         // Add views to linear layout
         final LinearLayout layout = (LinearLayout) findViewById(R.id.activityMain);
         myView = new MyView(this, getApplicationContext());
         layout.addView(myView, 0);
+        final LinearLayout thicknessLayout = (LinearLayout) findViewById(R.id.thickness);
+        thicknessLayout.setVisibility(View.INVISIBLE);
 
         // Binding
         erase = (ImageView) this.findViewById(R.id.erase);
@@ -62,15 +59,84 @@ public class MainActivity extends AppCompatActivity {
         topMenu = (LinearLayout) this.findViewById(R.id.topMenu);
 
         // TODO: Thick button
+        thick.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myView.MODE = 0;
+                if(thickMode == 0){
+                    thicknessLayout.setVisibility(View.VISIBLE);
+                    thickMode = 1;
+                    seekBarProgress = (SeekBar) findViewById(R.id.seekBar);
+                    seekBarProgress.setProgress(myView.THICKNESS);
+                    TextView textView = (TextView) findViewById(R.id.text);
+                    textView.setText("모래 굵기 조정");
+                    seekBarProgress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                        @Override
+                        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                            MyView.THICKNESS = i;
+                        }
+
+                        @Override
+                        public void onStartTrackingTouch(SeekBar seekBar) {
+
+                        }
+
+                        @Override
+                        public void onStopTrackingTouch(SeekBar seekBar) {
+
+                        }
+                    });
+                }
+                else{
+                    thicknessLayout.setVisibility(View.INVISIBLE);
+                    thickMode = 0;
+                }
+            }
+        }));
 
         // TODO: Erase button
         erase.setOnClickListener((new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(myView.MODE == 0)
+                if(myView.MODE == 0){
                     myView.MODE = 1;
-                else
+                    /*
+                    if(eraseMode == 0){
+                        thicknessLayout.setVisibility(View.VISIBLE);
+                        eraseMode = 1;
+                        seekBarProgress = (SeekBar) findViewById(R.id.seekBar);
+                        seekBarProgress.setProgress(myView.ERASENESS);
+                        seekBarProgress.setProgress(myView.THICKNESS);
+                        TextView textView = (TextView) findViewById(R.id.text);
+                        textView.setText("지우개 굵기 조정");
+                        seekBarProgress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                            @Override
+                            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                                MyView.ERASENESS = i;
+                            }
+
+                            @Override
+                            public void onStartTrackingTouch(SeekBar seekBar) {
+
+                            }
+
+                            @Override
+                            public void onStopTrackingTouch(SeekBar seekBar) {
+
+                            }
+                        });
+                    }
+                    else{
+                        thicknessLayout.setVisibility(View.INVISIBLE);
+                        eraseMode = 0;
+                    }
+                    */
+                }
+                else{
                     myView.MODE = 0;
+                    //thicknessLayout.setVisibility(View.INVISIBLE);
+                    eraseMode = 0;
+                }
             }
         }));
 
@@ -84,8 +150,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }));
-
-
 
         // Trash button
         trash.setOnClickListener((new View.OnClickListener(){

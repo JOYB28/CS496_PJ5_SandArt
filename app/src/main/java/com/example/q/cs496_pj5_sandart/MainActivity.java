@@ -213,7 +213,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         File fPath = Environment.getExternalStorageDirectory();
         File f = null;
-        f = new File(fPath, "drawPic1.png");
+        double random = Math.random()*100;
+        int random_random = (int) random*100;
+        String str = "drawPic"+random_random+".png";
+        f = new File(fPath, str);
 
         try {
             FileOutputStream strm = new FileOutputStream(f);

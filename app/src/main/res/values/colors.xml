@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="background">#DCD296</color>
     <color name="stage1">#CC9900</color>
     <color name="stage2">#996600</color>
     <color name="stage3">#663300</color>

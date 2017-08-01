@@ -1,9 +1,10 @@
-package com.example.q.cs496_pj5_sandart.view;
+package com.example.q.cs496_pj5_sandart;
 
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.Display;
@@ -25,6 +26,8 @@ public class MyView extends View {
     private Canvas cacheCanvas;
     private Paint mPaint = new Paint();
     public static int MODE = 0;
+    public static int THICKNESS = 10;
+    public static int ERASENESS = 30;
     int width, height;
     int total = 0;
     ArrayList<Sand> sandArrayList = new ArrayList<>();
@@ -44,8 +47,6 @@ public class MyView extends View {
                 sandArrayList.add(sand);
             }
         }
-
-
     }
     // initialize (shuffle)
     public void initialize(){
@@ -548,7 +549,7 @@ public class MyView extends View {
                 if(MODE == 0){
                     try{
                         final Sand sand1 = sandArrayList.get(Y*width+X);
-                        for(int i = 0; i <= 80; i++){
+                        for(int i = 0; i <= THICKNESS; i++){
                             locate(sand1);
                             invalidate();
                         }
@@ -558,11 +559,11 @@ public class MyView extends View {
                     }
                 }
                 else {
-                    mPaint.setColor(getResources().getColor(R.color.stage2));
-                    mPaint.setStrokeWidth(30f);
+                    mPaint.setColor(getResources().getColor(R.color.stage0));
+                    mPaint.setStrokeWidth((float) ERASENESS);
                     cacheCanvas.drawPoint(X, Y, mPaint);
-                    for(int i = -15; i <= 15; i++){
-                        for(int j = -15; j <= 15; j++){
+                    for(int i = -ERASENESS/2; i <= ERASENESS/2; i++){
+                        for(int j = -ERASENESS/2; j <= ERASENESS/2; j++){
                             Sand sand = sandArrayList.get((Y+i)*width+(X+j));
                             enabledSandArrayList.add(sand);
                             sand.setEnabled(false);
@@ -575,7 +576,7 @@ public class MyView extends View {
                 if(MODE == 0){
                     try{
                         Sand sand2 = sandArrayList.get(Y*width+X);
-                        for(int i = 0; i < 80; i++){
+                        for(int i = 0; i < THICKNESS; i++){
                             locate(sand2);
                             invalidate();
                         }
@@ -585,10 +586,10 @@ public class MyView extends View {
                 }
                 else{
                     mPaint.setColor(getResources().getColor(R.color.stage0));
-                    mPaint.setStrokeWidth(30f);
+                    mPaint.setStrokeWidth((float) ERASENESS);
                     cacheCanvas.drawPoint(X, Y, mPaint);
-                    for(int i = -15; i <= 15; i++){
-                        for(int j = -15; j <= 15; j++){
+                    for(int i = -ERASENESS/2; i <= ERASENESS/2; i++){
+                        for(int j = -ERASENESS/2; j <= ERASENESS/2; j++){
                             Sand sand = sandArrayList.get((Y+i)*width+(X+j));
                             enabledSandArrayList.add(sand);
                             sand.setEnabled(false);
